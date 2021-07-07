@@ -4,6 +4,7 @@ jobs:
     plan:
       - get: automation
       - get: image
+      - get: config
       - task: deploy
         image: image
         config:
@@ -12,7 +13,7 @@ jobs:
             - name: automation
           params:
             COLOR: ((color))
-            ENV_NAME: sandbox
+            ENV_NAME: ((env_name))
             VERSION: ((component-version)) 
           run:
             path: sh
@@ -43,6 +44,6 @@ resources:
 
 - name: image
   type: registry-image
-  icon: dockerhub
+  icon: docker
   source:
     repository: busybox
