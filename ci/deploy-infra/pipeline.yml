@@ -33,7 +33,7 @@ resources:
   icon: github
   source:
     uri: https://github.com/bertrand-lupart/deploy-automation
-    branch: master
+    branch: ((source_branch))
 
 - name: config
   type: git
