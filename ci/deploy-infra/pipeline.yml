@@ -11,9 +11,9 @@ jobs:
           inputs:
             - name: automation
           params:
-            COLOR: dummy
+            COLOR: ((color))
             ENV_NAME: sandbox
-            VERSION: ""
+            VERSION: ((component-version)) 
           run:
             path: sh
             args:
@@ -33,6 +33,13 @@ resources:
   source:
     uri: https://github.com/bertrand-lupart/deploy-automation
     branch: master
+
+- name: config
+  type: git
+  icon: github
+  source:
+   uri: https://github.com/bertrand-lupart/deploy-config
+   branch: master
 
 - name: image
   type: registry-image
