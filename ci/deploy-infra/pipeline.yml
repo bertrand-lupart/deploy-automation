@@ -1,0 +1,40 @@
+resources:
+- name: automation
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/bertrand-lupart/deploy-automation
+    branch: master
+
+jobs:
+- name: deploy
+  plan:
+  - get: automation
+  - get: image
+  - task: deploy
+    image: image
+    config:
+      platform: linux
+      inputs:
+        name: automation
+      params:
+        COLOR: dummy
+        ENV_NAME: "sandbox"
+        VERSION: ((component-version)) 
+      run:
+        path: sh
+          args:
+            - -ec
+            - |
+              echo "Deploying..."
+              echo "color:    '${COLOR}'"
+              echo "env_name: '${ENV_NAME}'"
+              echo "version:  '${VERSION}'"
+              sleep 5
+              echo OK!
+
+- name: image
+  type: registry_image
+  icon: dockerhub
+  source:
+    repository: busybox
